@@ -25,6 +25,11 @@ def gerar_relatorio_pecas(df):
     #substitui NaN para nada
     df = df.fillna('')
 
+    # Aplicar a lógica de exclusão de linhas
+    df = df[~((df['PEÇA DESCRIÇÃO'].str.contains('_PAINEL_DUP_', na=False)) & 
+          (df['ESPESSURA'].isin([15, 18])))]
+
+
     # Filtrar e organizar os dados
     relatorio_pecas = df[['PEÇA DESCRIÇÃO', 'CLIENTE - DADOS DO CLIENTE', 'ALTURA (X)', 'PROF (Y)', 
                           'ESPESSURA', 'AMBIENTE', 'DESENHO']]
@@ -143,19 +148,21 @@ def main():
     arquivo = askopenfilename(title="Selecione o arquivo Projeto_producao.xls", filetypes=[("Excel files", "*.xls;*.xlsx")])
     
     if arquivo:
-        # Ler o arquivo Excel
-        df = pd.read_excel(arquivo)
-
-        # Perguntar ao usuário qual relatório deseja gerar
-        print("Qual relatório você deseja gerar?")
-        print("1. Relatório de Peças")
-        opcao = input("Digite o número da opção: ")
-
-        if opcao == '1':
-            gerar_relatorio_pecas(df)
-            print("Relatório de peças gerado como 'Relatorio_Pecas.pdf'.")
-        else:
-            print("Opção inválida.")
+        try:
+            # Ler o arquivo Excel
+            df = pd.read_excel(arquivo)
+            
+            # Perguntar ao usuário qual relatório deseja gerar
+            print("Qual relatório você deseja gerar?")
+            print("1. Relatório de Peças")
+            opcao = input("Digite o número da opção: ")
+            
+            if opcao == '1':
+                gerar_relatorio_pecas(df)
+            else:
+                print("Opção inválida.")
+        except Exception as e:
+            print(f"Erro ao ler o arquivo ou gerar o relatório: {e}")
 
 if __name__ == "__main__":
     main()
