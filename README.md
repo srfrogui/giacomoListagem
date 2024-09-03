@@ -1,56 +1,71 @@
-# Gerador de Relatório em PDF
+# 📊 Relatório de Peças com Python 🍌
 
-Este projeto é um script Python que gera um relatório em PDF a partir de um arquivo Excel. O relatório inclui detalhes sobre peças e pode ser formatado para incluir informações específicas, como dimensões e cliente.
+Bem-vindo ao projeto de geração de relatórios em PDF para peças usando Python! Este script lê dados de um arquivo Excel e gera um relatório PDF detalhado com base nas informações fornecidas.
 
-## Requisitos
+## 🚀 Funcionalidades
 
-Certifique-se de que você tem Python 3.x instalado. O projeto utiliza as seguintes bibliotecas:
+- **Leitura de Arquivo Excel:** O script pode ler arquivos Excel com extensão `.xls` ou `.xlsx`.
+- **Filtro e Organização:** Filtra dados com base em critérios específicos e organiza o relatório conforme desejado.
+- **Geração de PDF:** Cria um relatório em PDF formatado e estilizado para fácil leitura.
 
-- `pandas`
-- `reportlab`
-- `tkinter`
+## 📂 Download
 
-Você pode instalar as dependências necessárias executando:
+Você pode baixar a build zipada do projeto diretamente do GitHub:
 
-```bash
+- [Baixar o projeto](https://github.com/srfrogui/giacomoListagem/releases/latest/download/Embananador-win32.zip)
+
+## 🛠️ Requisitos
+
+Certifique-se de ter os seguintes pacotes Python instalados. Você pode instalá-los executando:
+
+```sh
 pip install -r req.txt
 ```
 
-## Uso
+Onde `req.txt` deve conter:
 
-1. Execute o script Python:
+```
+pandas
+reportlab 
+tk
+xlrd
+```
 
-    ```bash
-    python amostrado.py
+## 📝 Como Usar
+
+1. **Clone o repositório ou baixe o script Python.**
+2. **Instale os requisitos listados acima.**
+3. **Execute o script Python:**
+
+    ```sh
+    python embananador.py
     ```
 
-2. Uma janela de seleção de arquivo será aberta. Selecione o arquivo Excel que contém os dados das peças. O arquivo deve estar no formato `.xls` ou `.xlsx`.
+4. **Selecione o arquivo Excel quando solicitado.**
+5. **Escolha o tipo de relatório que deseja gerar (por enquanto, apenas o Relatório de Peças está disponível).**
+6. **O relatório será salvo como um arquivo PDF no mesmo diretório do arquivo Excel.**
 
-3. O script solicitará que você escolha o relatório que deseja gerar. Atualmente, você pode gerar um "Relatório de Peças".
+## 📂 Estrutura do Projeto
 
-4. O relatório será salvo como `Relatorio_Pecas.pdf` no diretório atual.
+- **`embananador.py`:** Script principal para geração de relatórios.
+- **`req.txt`:** Arquivo de requisitos com as dependências necessárias.
 
-## Funcionalidades
+## 📜 Exemplo de Saída
 
-- **Formatação de Valores**: Remove o `.0` de valores flutuantes e formata números inteiros.
-- **Geração de Relatório**: Cria um PDF com tabelas formatadas contendo informações sobre peças.
-- **Personalização**: Inclui opções de formatação como alinhamento de texto, cores e tamanhos de fonte.
+Abaixo está um exemplo de como o relatório gerado pode parecer:
 
-## Personalização
+![Exemplo de Relatório](imagemexemplo.png)
 
-Você pode ajustar o estilo do relatório editando o script, incluindo:
+## 💬 Contribuições
 
-- **Largura das Colunas**: Modifique as larguras das colunas no código.
-- **Estilos da Tabela**: Altere a aparência das tabelas, como cor de fundo e estilo de fonte.
+Sinta-se à vontade para contribuir com melhorias, correções ou novas funcionalidades. Se você tiver sugestões ou encontrar problemas, abra uma issue ou envie um pull request!
 
-## Problemas Conhecidos
+## 👋 Agradecimentos
 
-- **Altura das Linhas**: Pode haver problemas com a altura das linhas em alguns casos, ajuste manualmente se necessário.
+Agradecemos por usar este projeto. Se você gostou, por favor, dê uma estrela! ⭐
+TMJ Alexander apreciador de bananas <###333
+Se você tiver alguma dúvida ou precisar de ajuda, sinta-se à vontade para entrar em contato.
 
-## Contribuições
+---
 
-Contribuições são bem-vindas! Se você encontrar bugs ou tiver sugestões de melhorias, sinta-se à vontade para abrir uma issue ou enviar um pull request.
-
-## Licença
-
-Este projeto é licenciado sob a [Licença MIT](LICENSE).
+🍌 **Divirta-se gerando relatórios!** 🍌
