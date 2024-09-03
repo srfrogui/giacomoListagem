@@ -22,17 +22,24 @@ def formatar_valores(data):
     return formatted_data
 
 def gerar_relatorio_pecas(df):
-    #substitui NaN para nada
+    # Substitui NaN por string vazia
     df = df.fillna('')
-
+    
     # Aplicar a lógica de exclusão de linhas
-    df = df[~((df['PEÇA DESCRIÇÃO'].str.contains('_PAINEL_DUP_', na=False)) & 
-          (df['ESPESSURA'].isin([15, 18])))]
-
+    mask_exclude = (
+        ((df['PEÇA DESCRIÇÃO'].str.contains('_PAINEL_DUP_', na=False)) & (df['ESPESSURA'].isin([15, 18]))) |
+        (df['PEÇA DESCRIÇÃO'].str.contains('_PRAT_DUP_CORTE', na=False)) |
+        (df['PEÇA DESCRIÇÃO'].str.contains('_PAINEL_ENG_CORTE', na=False)) |
+        (df['PEÇA DESCRIÇÃO'].str.contains('_ENGROSSO_', na=False)) |
+        ((df['PEÇA DESCRIÇÃO'].str.contains('_ENG', na=False)) & (df['ESPESSURA'] == '6'))
+    )
+    
+    # Filtrar o DataFrame removendo as linhas que atendem à condição mask_exclude
+    df_filtered = df[~mask_exclude]
 
     # Filtrar e organizar os dados
-    relatorio_pecas = df[['PEÇA DESCRIÇÃO', 'CLIENTE - DADOS DO CLIENTE', 'ALTURA (X)', 'PROF (Y)', 
-                          'ESPESSURA', 'AMBIENTE', 'DESENHO']]
+    relatorio_pecas = df_filtered[['PEÇA DESCRIÇÃO', 'CLIENTE - DADOS DO CLIENTE', 'ALTURA (X)', 'PROF (Y)', 'ESPESSURA', 'AMBIENTE', 'DESENHO']]
+
     relatorio_pecas = relatorio_pecas.rename(columns={
         'PEÇA DESCRIÇÃO': 'PEÇA DESCRIÇÃO',
         'CLIENTE - DADOS DO CLIENTE': 'CLIENTE',
@@ -46,8 +53,9 @@ def gerar_relatorio_pecas(df):
     # Adicionar a coluna VISTO
     relatorio_pecas['VISTO'] = ''
     
-    # Organizar por ALTURA (X) de forma decrescente
-    relatorio_pecas = relatorio_pecas.sort_values(by='ALT (X)', ascending=False)
+    # Organizar por ALTURA (X) de forma decrescente e depois por LARGURA (Y) de forma decrescente
+    relatorio_pecas = relatorio_pecas.sort_values(by=['ALT (X)', 'PROF (Y)'], ascending=[False, False])
+
 
     # Adicionar a coluna NUMERADOR
     relatorio_pecas['NUM'] = range(1, len(relatorio_pecas) + 1)
@@ -86,7 +94,6 @@ def gerar_relatorio_pecas(df):
         ('TOPPADDING', (0, 0), (-1, -1), 10),  # Adiciona espaçamento na parte Superior
         ('BOTTOMPADDING', (0, 0), (-1, -1), 2),  # Adiciona espaçamento na parte inferior
         ('BOTTOMPADDING', (1, 0), (1, -1), 0),  # Adiciona espaçamento na parte inferior para a coluna 'CLIENTE'
-        ('BOTTOMPADDING', (5, 0), (5, -1), 0),  # Adiciona espaçamento na parte inferior para a coluna 'AMBIENTE'
     ])
 
     # Alternar fundo cinza e branco
@@ -136,7 +143,6 @@ def gerar_relatorio_pecas(df):
         ('FONTNAME', (0, 0), (-1, -1), 'Arial'),
         ('FONTSIZE', (0, 0), (-1, -1), 11),  # Tamanho padrão para todas as colunas
         ('FONTSIZE', (1, 0), (1, -1), 8),    # Tamanho da fonte para a coluna 'CLIENTE'
-        ('FONTSIZE', (5, 0), (5, -1), 8),    # Tamanho da fonte para a coluna 'AMBIENTE'
     ])
 
     elements.append(table)
@@ -155,7 +161,7 @@ def main():
             # Perguntar ao usuário qual relatório deseja gerar
             print("Qual relatório você deseja gerar?")
             print("1. Relatório de Peças")
-            opcao = input("Digite o número da opção: ")
+            opcao = "1" # input("Digite o número da opção: ")
             
             if opcao == '1':
                 gerar_relatorio_pecas(df)
