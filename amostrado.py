@@ -7,6 +7,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+import os
 
 def formatar_valores(data):
     """ Remove o .0 dos valores flutuantes e formata os números inteiros """
@@ -21,7 +22,7 @@ def formatar_valores(data):
         formatted_data.append(new_row)
     return formatted_data
 
-def gerar_relatorio_pecas(df):
+def gerar_relatorio_pecas(df, arquivo_excel):
     # Substitui NaN por string vazia
     df = df.fillna('')
     
@@ -56,7 +57,6 @@ def gerar_relatorio_pecas(df):
     # Organizar por ALTURA (X) de forma decrescente e depois por LARGURA (Y) de forma decrescente
     relatorio_pecas = relatorio_pecas.sort_values(by=['ALT (X)', 'PROF (Y)'], ascending=[False, False])
 
-
     # Adicionar a coluna NUMERADOR
     relatorio_pecas['NUM'] = range(1, len(relatorio_pecas) + 1)
 
@@ -64,7 +64,8 @@ def gerar_relatorio_pecas(df):
     data = [relatorio_pecas.columns.tolist()] + formatar_valores(relatorio_pecas.values.tolist())
     
     # Salvar o relatório como PDF
-    file_name = 'Relatorio_Pecas.pdf'
+    pasta_arquivo = os.path.dirname(arquivo_excel)  # Obtém o diretório onde o arquivo Excel está localizado
+    file_name = os.path.join(pasta_arquivo, 'Relatorio_Pecas.pdf')
     
     # Ajustar margens para usar mais espaço na página
     margins = {'rightMargin': 0.3 * inch, 'leftMargin': 0.3 * inch, 
@@ -149,6 +150,17 @@ def gerar_relatorio_pecas(df):
     doc.build(elements)
 
 def main():
+    print("  _______    ______   __    __   ______   __    __   ______   ")
+    print(" |       \  /      \ |  \  |  \ /      \ |  \  |  \ /      \  ")
+    print(" | $$$$$$$\|  $$$$$$\| $$\ | $$|  $$$$$$\| $$\ | $$|  $$$$$$\ ")
+    print(" | $$__/ $$| $$__| $$| $$$\| $$| $$__| $$| $$$\| $$| $$__| $$ ")
+    print(" | $$    $$| $$    $$| $$$$\ $$| $$    $$| $$$$\ $$| $$    $$ ")
+    print(" | $$$$$$$\| $$$$$$$$| $$\$$ $$| $$$$$$$$| $$\$$ $$| $$$$$$$$ ")
+    print(" | $$__/ $$| $$  | $$| $$ \$$$$| $$  | $$| $$ \$$$$| $$  | $$ ")
+    print(" | $$    $$| $$  | $$| $$  \$$$| $$  | $$| $$  \$$$| $$  | $$ ")
+    print("  \$$$$$$$  \$$   \$$ \$$   \$$ \$$   \$$ \$$   \$$ \$$   \$$ ")
+
+
     # Abrir a janela de seleção de arquivo
     Tk().withdraw()  # Evitar que a janela principal do Tkinter apareça
     arquivo = askopenfilename(title="Selecione o arquivo Projeto_producao.xls", filetypes=[("Excel files", "*.xls;*.xlsx")])
@@ -162,9 +174,9 @@ def main():
             print("Qual relatório você deseja gerar?")
             print("1. Relatório de Peças")
             opcao = "1" # input("Digite o número da opção: ")
-            
+            aguarde = input("Pressione uma banana para continuar...")
             if opcao == '1':
-                gerar_relatorio_pecas(df)
+                gerar_relatorio_pecas(df, arquivo)
             else:
                 print("Opção inválida.")
         except Exception as e:
