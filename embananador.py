@@ -101,7 +101,7 @@ def gerar_relatorio_pecas(df, arquivo_excel):
     num_rows = len(data)
     for i in range(1, num_rows):
         if i % 2 == 1:
-            style.add('BACKGROUND', (0, i), (-1, i), colors.Color(0.8, 0.8, 0.8))  # Cinza claro
+            style.add('BACKGROUND', (0, i), (-1, i), colors.Color(0.9, 0.9, 0.9))  # Cinza claro
         else:
             style.add('BACKGROUND', (0, i), (-1, i), colors.white)
     
