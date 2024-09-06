@@ -82,19 +82,21 @@ def gerar_relatorio_pecas(df, arquivo_excel):
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('ALIGN', (0, 1), (-1, -1), 'CENTER'),
+        ('ALIGN', (0, 0), (0, -1), 'LEFT'),   # Justificar à esquerda para 'PEÇA'
         ('ALIGN', (2, 1), (2, -1), 'RIGHT'),  # Justificar à direita para 'ALTURA (X)'
         ('ALIGN', (3, 1), (3, -1), 'RIGHT'),  # Justificar à direita para 'PROF (Y)'
         ('ALIGN', (4, 1), (4, -1), 'RIGHT'),  # Justificar à direita para 'ESPESSURA'
         ('ALIGN', (5, 1), (5, -1), 'LEFT'),   # Justificar à esquerda para 'AMBIENTE'
         ('ALIGN', (6, 1), (6, -1), 'LEFT'),   # Justificar à esquerda para 'DESENHO'
         ('ALIGN', (7, 1), (7, -1), 'RIGHT'),  # Justificar à direita para 'NUMERADOR'
-        ('ALIGN', (1, 1), (1, -1), 'LEFT'),   # Justificar à esquerda para 'PEÇA'
-        ('ALIGN', (0, 1), (0, -1), 'LEFT'),   # Justificar à esquerda para 'CLIENTE'
+        ('ALIGN', (1, 1), (1, -1), 'LEFT'),   # Justificar à esquerda para 'CLIENTE'
         ('BOX', (0, 0), (-1, -1), 0.2, colors.black),  # Espessura das bordas
         ('GRID', (0, 0), (-1, -1), 0.5, colors.black),  # Espessura das linhas de grade
         ('TOPPADDING', (0, 0), (-1, -1), 10),  # Adiciona espaçamento na parte Superior
         ('BOTTOMPADDING', (0, 0), (-1, -1), 2),  # Adiciona espaçamento na parte inferior
-        ('BOTTOMPADDING', (1, 0), (1, -1), 0),  # Adiciona espaçamento na parte inferior para a coluna 'CLIENTE'
+        ('BOTTOMPADDING', (1, 1), (1, -1), -1),  # Adiciona espaçamento na parte inferior para a coluna 'CLIENTE'
+        ('BOTTOMPADDING', (5, 1), (5, -1), -1),  # Adiciona espaçamento na parte inferior para a coluna 'AMBIENTE'
+        ('BOTTOMPADDING', (0, 0), (0, -1), 0),  # Adiciona espaçamento na parte inferior para a coluna 'PECA'
     ])
 
     # Alternar fundo cinza e branco
@@ -143,9 +145,9 @@ def gerar_relatorio_pecas(df, arquivo_excel):
     table.setStyle([
         ('FONTNAME', (0, 0), (-1, -1), 'Arial'),
         ('FONTSIZE', (0, 0), (-1, -1), 11),  # Tamanho padrão para todas as colunas
-        ('FONTSIZE', (1, 0), (1, -1), 8),    # Tamanho da fonte para a coluna 'CLIENTE'
-        ('FONTSIZE', (5, 1), (5, -1), 8),    # Tamanho da fonte para a coluna 'AMBIENTE'
-        ('ALIGN', (1, 1), (1, -1), 9),       # Tamanho da fonte para a coluna 'PECA'
+        ('FONTSIZE', (1, 1), (1, -1), 6),    # Tamanho da fonte para a coluna 'CLIENTE'
+        ('FONTSIZE', (5, 1), (5, -1), 6),    # Tamanho da fonte para a coluna 'AMBIENTE'
+        ('FONTSIZE', (0, 0), (0, -1), 8),    # Tamanho da fonte para a coluna 'PECA'
     ])
 
     elements.append(table)
