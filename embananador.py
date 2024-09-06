@@ -144,6 +144,8 @@ def gerar_relatorio_pecas(df, arquivo_excel):
         ('FONTNAME', (0, 0), (-1, -1), 'Arial'),
         ('FONTSIZE', (0, 0), (-1, -1), 11),  # Tamanho padrão para todas as colunas
         ('FONTSIZE', (1, 0), (1, -1), 8),    # Tamanho da fonte para a coluna 'CLIENTE'
+        ('FONTSIZE', (5, 1), (5, -1), 8),    # Tamanho da fonte para a coluna 'AMBIENTE'
+        ('ALIGN', (1, 1), (1, -1), 9),       # Tamanho da fonte para a coluna 'PECA'
     ])
 
     elements.append(table)
