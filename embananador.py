@@ -30,6 +30,7 @@ def gerar_relatorio_pecas(df, arquivo_excel):
     mask_exclude = (
         ((df['PEÇA DESCRIÇÃO'].str.contains('_PAINEL_DUP_', na=False)) & (df['ESPESSURA'].isin([15, 18]))) |
         (df['PEÇA DESCRIÇÃO'].str.contains('_PRAT_DUP_CORTE', na=False)) |
+        (df['PEÇA DESCRIÇÃO'].str.contains('AFAST_DUP_CORTE', na=False)) |
         (df['PEÇA DESCRIÇÃO'].str.contains('_PAINEL_ENG_CORTE', na=False)) |
         (df['PEÇA DESCRIÇÃO'].str.contains('_ENGROSSO_', na=False)) |
         ((df['PEÇA DESCRIÇÃO'].str.contains('_ENG', na=False)) & (df['ESPESSURA'] == '6'))
