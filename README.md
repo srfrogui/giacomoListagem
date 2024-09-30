@@ -12,7 +12,7 @@ Bem-vindo ao projeto de geração de relatórios em PDF para peças usando Pytho
 
 Você pode baixar a build zipada do projeto diretamente do GitHub:
 
-- [Baixar o projeto](https://github.com/srfrogui/giacomoListagem/releases/latest/download/Embananador-win32.zip)
+- [Baixar o projeto](https://github.com/srfrogui/giacomoListagem/releases)
 
 ## 🛠️ Requisitos
 
