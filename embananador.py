@@ -66,8 +66,15 @@ def gerar_relatorio_pecas(df, arquivo_excel):
     
     # Salvar o relatório como PDF
     pasta_arquivo = os.path.dirname(arquivo_excel)  # Obtém o diretório onde o arquivo Excel está localizado
-    file_name = os.path.join(pasta_arquivo, 'Relatorio_Pecas.pdf')
     
+    # Extrair o nome da pasta
+    nome_pasta = os.path.basename(pasta_arquivo)  # Obtém o nome da pasta
+    print('basename', pasta_arquivo)
+    print('basename', nome_pasta)
+    nome = nome_pasta.split(' ')[1] + ' ' + nome_pasta.split(' ')[2]  # Extrai a parte após o underscore
+    print('basename', nome)
+    file_name = os.path.join(pasta_arquivo, f'Relatorio_Pecas_{nome}.pdf')
+    print(file_name)
     # Ajustar margens para usar mais espaço na página
     margins = {'rightMargin': 0.3 * inch, 'leftMargin': 0.3 * inch, 
                'topMargin': 0.3 * inch, 'bottomMargin': 0.3 * inch}
@@ -160,7 +167,7 @@ def mostrar_erro(mensagem):
     messagebox.showerror("Erro", mensagem)
     root.destroy()  # Destroi a janela após mostrar o erro
 
-def main():
+def main(arquivo=None):
     print("  _______    ______   __    __   ______   __    __   ______   ")
     print(" |       \  /      \ |  \  |  \ /      \ |  \  |  \ /      \  ")
     print(" | $$$$$$$\|  $$$$$$\| $$\ | $$|  $$$$$$\| $$\ | $$|  $$$$$$\ ")
@@ -171,10 +178,10 @@ def main():
     print(" | $$    $$| $$  | $$| $$  \$$$| $$  | $$| $$  \$$$| $$  | $$ ")
     print("  \$$$$$$$  \$$   \$$ \$$   \$$ \$$   \$$ \$$   \$$ \$$   \$$ ")
 
-
-    # Abrir a janela de seleção de arquivo
-    Tk().withdraw()  # Evitar que a janela principal do Tkinter apareça
-    arquivo = askopenfilename(title="Selecione o arquivo Projeto_producao.xls", filetypes=[("Excel files", "*.xls;*.xlsx")])
+    if not arquivo:
+        # Abrir a janela de seleção de arquivo
+        Tk().withdraw()  # Evitar que a janela principal do Tkinter apareça
+        arquivo = askopenfilename(title="Selecione o arquivo Projeto_producao.xls", filetypes=[("Excel files", "*.xls;*.xlsx")])
     
     if arquivo:
         try:
@@ -182,8 +189,8 @@ def main():
             df = pd.read_excel(arquivo)
             
             # Perguntar ao usuário qual relatório deseja gerar
-            print("Qual relatório você deseja gerar?")
-            print("1. Relatório de Peças")
+            #print("Qual relatório você deseja gerar?")
+            #print("1. Relatório de Peças")
             opcao = "1"  # input("Digite o número da opção: ")
             if opcao == '1':
                 gerar_relatorio_pecas(df, arquivo)
